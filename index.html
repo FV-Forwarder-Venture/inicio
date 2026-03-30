@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forwarder Venture</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+  body { font-family: 'Inter', sans-serif; background:#F8FAFC; }
+  .bg-fv { background:#002e5f; }
+  .text-fv { color:#002e5f; }
+
+  .nav { transition: all .3s ease; }
+  .nav.scrolled { background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+
+  .logo-big { height: 70px; transition: all .3s ease; }
+  .logo-small { height: 40px !important; }
+
+  .hero {
+    background: linear-gradient(rgba(0,46,95,.85), rgba(0,46,95,.85)),
+    url('https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1600');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .card:hover { transform: translateY(-6px); }
+
+  .fade { opacity:0; transform: translateY(20px); transition: all .6s ease; }
+  .fade.show { opacity:1; transform: translateY(0); }
+</style>
+</head>
+
+<body class="scroll-smooth">
+
+<!-- NAV -->
+<header id="navbar" class="nav fixed top-0 left-0 w-full z-50">
+  <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+
+    <img src="logo.png" id="logo" class="logo-big object-contain" onerror="this.src='https://via.placeholder.com/140x40?text=LOGO'">
+
+    <nav class="hidden md:flex gap-8 text-sm font-bold text-white" id="menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#catalogos">Productos</a>
+      <a href="#terminos">Términos</a>
+      <a href="#nosotros">Nosotros</a>
+    </nav>
+
+    <button onclick="toggleMenu()" class="md:hidden text-white text-2xl">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+  </div>
+
+  <div id="mobileMenu" class="hidden bg-white p-6 flex flex-col gap-4 font-bold">
+    <a href="#inicio">Inicio</a>
+    <a href="#catalogos">Productos</a>
+    <a href="#terminos">Términos</a>
+    <a href="#nosotros">Nosotros</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="inicio" class="hero h-screen flex items-center justify-center text-center text-white px-6">
+  <div class="max-w-3xl fade">
+    <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">
+      Tecnología que impulsa tu negocio
+    </h1>
+    <p class="text-lg text-gray-200 mb-8">
+      Importamos, personalizamos y conectamos productos innovadores con emprendedores y empresas.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#catalogos" onclick="track('ver_catalogos')" class="bg-orange-500 px-8 py-4 rounded-xl font-black text-sm hover:scale-105 transition">
+        VER CATÁLOGOS
+      </a>
+      <a href="https://wa.me/573114957971?text=Hola%20quiero%20una%20asesor%C3%ADa" onclick="track('whatsapp_hero')" target="_blank" class="bg-white text-fv px-8 py-4 rounded-xl font-black text-sm">
+        COTIZAR AHORA
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD CAPTURE -->
+<section class="py-16 bg-fv text-white text-center fade">
+  <h2 class="text-3xl font-black mb-4">Recibe el catálogo VIP</h2>
+  <p class="mb-6 text-gray-200">Déjanos tu WhatsApp y te enviamos productos exclusivos</p>
+
+  <div class="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto">
+    <input id="lead" placeholder="Tu WhatsApp" class="p-4 rounded-xl text-black w-full">
+    <button onclick="captureLead()" class="bg-orange-500 px-6 rounded-xl font-black">ENVIAR</button>
+  </div>
+</section>
+
+<!-- CONFIANZA -->
+<section class="py-12 bg-white text-center fade">
+  <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-fv font-black">
+    <div>+500 Productos</div>
+    <div>Envíos Nacionales</div>
+    <div>Atención Personalizada</div>
+    <div>Soluciones para PYMES</div>
+  </div>
+</section>
+
+<!-- CATÁLOGOS -->
+<section id="catalogos" class="py-20 px-6 max-w-7xl mx-auto fade">
+  <h2 class="text-3xl md:text-4xl font-black text-fv mb-12 text-center">Productos y Servicios</h2>
+  <div id="catalog-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"></div>
+</section>
+
+<!-- TÉRMINOS -->
+<section id="terminos" class="bg-white py-20 px-6 fade">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-black text-fv mb-8">Términos de Compra</h2>
+    <div class="space-y-3 text-gray-600 text-sm">
+      <p>• Todos los precios son antes de IVA.</p>
+      <p>• Productos sujetos a disponibilidad.</p>
+      <p>• Tiempos de entrega variables según importación.</p>
+      <p>• Garantía directamente con proveedor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" class="py-20 px-6 max-w-6xl mx-auto fade">
+  <h2 class="text-3xl font-black text-fv mb-10">Quiénes somos</h2>
+  <div class="grid md:grid-cols-2 gap-10 text-sm text-gray-600">
+
+    <div>
+      <h3 class="font-black text-fv mb-2">Nuestra Historia</h3>
+      <p>En Forwarder Venture nacimos con la visión de conectar tecnología global con el mercado colombiano.</p>
+    </div>
+
+    <div>
+      <h3 class="font-black text-fv mb-2">¿Qué hacemos?</h3>
+      <p>Importamos tecnología y ayudamos a PYMES a escalar con soluciones eficientes.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-white py-12 text-center">
+  <img src="logo.png" class="mx-auto mb-4 w-32" onerror="this.src='https://via.placeholder.com/120x40'">
+  <p class="text-orange-400 text-xs">* TODOS LOS PRECIOS SON ANTES DE IVA</p>
+  <p class="text-gray-500 text-xs mt-2">© 2026 Forwarder Venture. Todos los derechos reservados.</p>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/573114957971?text=Hola%20quiero%20asesor%C3%ADa" onclick="track('whatsapp_float')" target="_blank"
+class="fixed bottom-6 right-6 bg-green-500 text-white px-5 py-4 rounded-full shadow-2xl flex items-center gap-3">
+<i class="fa-brands fa-whatsapp text-xl"></i>
+<span class="text-sm font-black">Asesoría inmediata</span>
+</a>
+
+<script>
+
+// ===== TRACKING REAL (Google Sheets como backend ligero) =====
+const TRACK_ENDPOINT = "https://script.google.com/macros/s/REEMPLAZAR_CON_TU_URL/exec";
+
+function track(event, extra = {}){
+  const payload = {
+    event: event,
+    timestamp: new Date().toISOString(),
+    page: window.location.href,
+    ...extra
+  };
+
+  // Envío silencioso
+  fetch(TRACK_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).catch(()=>{});
+
+  console.log("TRACK:", payload);
+}
+
+// ===== CAPTURA DE LEADS MEJORADA =====
+function captureLead(){
+  const val = document.getElementById('lead').value.trim();
+
+  if(!val || val.length < 8){
+    alert('Ingresa un número válido');
+    return;
+  }
+
+  // Guardar lead
+  track('lead_capture', { phone: val });
+
+  // Mensaje automático optimizado
+  const msg = `Hola, acabo de registrarme en la web. Mi número es ${val}. Quiero recibir el catálogo VIP.`;
+
+  window.open(`https://wa.me/573114957971?text=${encodeURIComponent(msg)}`, '_blank');
+
+  // Feedback visual
+  document.getElementById('lead').value = "";
+  alert('Listo 🚀 Te contactamos por WhatsApp');
+}
+
+function captureLead(){
+  const val = document.getElementById('lead').value;
+  if(!val) return alert('Ingresa tu número');
+  track('lead');
+  window.open(`https://wa.me/573114957971?text=Hola%20este%20es%20mi%20n%C3%BAmero:%20${val}`, '_blank');
+}
+
+window.addEventListener("scroll", () => {
+  const nav = document.getElementById("navbar");
+  const logo = document.getElementById("logo");
+  const menu = document.getElementById("menu");
+
+  if(window.scrollY > 50){
+    nav.classList.add("scrolled");
+    logo.classList.add("logo-small");
+    menu.classList.remove("text-white");
+    menu.classList.add("text-gray-700");
+  } else {
+    nav.classList.remove("scrolled");
+    logo.classList.remove("logo-small");
+    menu.classList.add("text-white");
+    menu.classList.remove("text-gray-700");
+  }
+});
+
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("hidden");
+}
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){ entry.target.classList.add("show"); }
+  });
+});
+
+document.querySelectorAll('.fade').forEach(el=>observer.observe(el));
+
+const CSV_URL = "https://docs.google.com/spreadsheets/d/17a0Pxq1EOLRf86yiuM014ZluVqL2Qj1Mt8cKRDenjHc/export?format=csv&gid=846871297";
+
+Papa.parse(CSV_URL, {
+  download: true,
+  header: true,
+  complete: function(res) {
+    const container = document.getElementById("catalog-list");
+
+    container.innerHTML = res.data.map(c => {
+      if(!c["Nombre Catálogo"]) return "";
+
+      return `
+      <a href="${c["Enlace"]}" onclick="track('catalog_click')" class="card bg-white rounded-2xl shadow-lg overflow-hidden transition block">
+        <div class="h-40 bg-cover bg-center" style="background-image:url('${c["Imagen Banner"]}')"></div>
+        <div class="p-5">
+          <h3 class="font-black text-fv text-lg">${c["Nombre Catálogo"]}</h3>
+          <p class="text-sm text-gray-500 mt-2">${c["Titulo"]}</p>
+        </div>
+      </a>`;
+    }).join("");
+  }
+});
+
+</script>
+
+</body>
+</html>
