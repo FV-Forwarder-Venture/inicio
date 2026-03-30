@@ -4,107 +4,77 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Forwarder Venture</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
   body { font-family: 'Inter', sans-serif; background:#F8FAFC; }
   .bg-fv { background:#002e5f; }
   .text-fv { color:#002e5f; }
-
   .nav { transition: all .3s ease; }
   .nav.scrolled { background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
-
   .logo-big { height: 70px; transition: all .3s ease; }
   .logo-small { height: 40px !important; }
-
   .hero {
     background: linear-gradient(rgba(0,46,95,.85), rgba(0,46,95,.85)),
     url('https://images.pexels.com/photos/3778622/pexels-photo-3778622.jpeg');
     background-size: cover;
     background-position: center;
   }
-
   .card:hover { transform: translateY(-6px); }
-
   .fade { opacity:0; transform: translateY(20px); transition: all .6s ease; }
   .fade.show { opacity:1; transform: translateY(0); }
 </style>
 </head>
-
 <body class="scroll-smooth">
 
-<!-- NAV -->
-<header id="navbar" class="nav fixed top-0 left-0 w-full z-50 bg-white shadow-sm">
+<header id="navbar" class="nav fixed top-0 left-0 w-full z-50 transition-all duration-300">
   <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-
-    <img src="logo.png" 
-         id="logo" 
-         class="h-20 w-auto object-contain logo-big" 
-         alt="Logo"
-         onerror="this.src='https://via.placeholder.com/200x80?text=LOGO'">
-
-    </div>
-</header>
-  
-    <nav class="hidden md:flex gap-8 text-sm font-bold text-white" id="menu">
-      <a href="#inicio">Inicio</a>
-      <a href="#catalogos">Productos</a>
-      <a href="#terminos">Términos</a>
-      <a href="#nosotros">Nosotros</a>
+    <img src="logo.png" id="logo" class="h-20 w-auto object-contain logo-big" alt="Logo" onerror="this.src='https://via.placeholder.com/200x80?text=LOGO'">
+    
+    <nav class="hidden md:flex gap-8 text-sm font-bold text-white transition-colors" id="menu">
+      <a href="#inicio" class="hover:text-orange-500">Inicio</a>
+      <a href="#catalogos" class="hover:text-orange-500">Productos</a>
+      <a href="#terminos" class="hover:text-orange-500">Términos</a>
+      <a href="#nosotros" class="hover:text-orange-500">Nosotros</a>
     </nav>
 
-    <button onclick="toggleMenu()" class="md:hidden text-white text-2xl">
+    <button onclick="toggleMenu()" class="md:hidden text-white text-2xl" id="menuBtn">
       <i class="fa-solid fa-bars"></i>
     </button>
-
   </div>
-
-  <div id="mobileMenu" class="hidden bg-white p-6 flex flex-col gap-4 font-bold">
-    <a href="#inicio">Inicio</a>
-    <a href="#catalogos">Productos</a>
-    <a href="#terminos">Términos</a>
-    <a href="#nosotros">Nosotros</a>
+  
+  <div id="mobileMenu" class="hidden bg-white p-6 flex flex-col gap-4 font-bold shadow-xl">
+    <a href="#inicio" onclick="toggleMenu()">Inicio</a>
+    <a href="#catalogos" onclick="toggleMenu()">Productos</a>
+    <a href="#terminos" onclick="toggleMenu()">Términos</a>
+    <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
   </div>
 </header>
 
-<!-- HERO -->
 <section id="inicio" class="hero h-screen flex items-center justify-center text-center text-white px-6">
   <div class="max-w-3xl fade">
-    <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">
-      Tecnología que impulsa tu negocio
-    </h1>
-    <p class="text-lg text-gray-200 mb-8">
-      Comercializamos, personalizamos y conectamos productos innovadores con emprendedores y empresas.
-    </p>
+    <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">Tecnología que impulsa tu negocio</h1>
+    <p class="text-lg text-gray-200 mb-8">Comercializamos, personalizamos y conectamos productos innovadores con emprendedores y empresas.</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="#catalogos" onclick="track('ver_catalogos')" class="bg-orange-500 px-8 py-4 rounded-xl font-black text-sm hover:scale-105 transition">
-        VER CATÁLOGOS
-      </a>
-      <a href="https://wa.me/573114957971?text=Hola%20quiero%20una%20asesor%C3%ADa" onclick="track('whatsapp_hero')" target="_blank" class="bg-white text-fv px-8 py-4 rounded-xl font-black text-sm">
-        COTIZAR AHORA
-      </a>
+      <a href="#catalogos" onclick="track('ver_catalogos')" class="bg-orange-500 px-8 py-4 rounded-xl font-black text-sm hover:scale-105 transition text-center">VER CATÁLOGOS</a>
+      <a href="https://wa.me/573114957971?text=Hola%20quiero%20una%20asesor%C3%ADa" onclick="track('whatsapp_hero')" target="_blank" class="bg-white text-fv px-8 py-4 rounded-xl font-black text-sm text-center">COTIZAR AHORA</a>
     </div>
   </div>
 </section>
 
-<!-- LEAD CAPTURE -->
 <section class="py-16 bg-fv text-white text-center fade">
   <h2 class="text-3xl font-black mb-4">Recibe el catálogo VIP</h2>
   <p class="mb-6 text-gray-200">Déjanos tu WhatsApp y te enviamos productos exclusivos</p>
-
-  <div class="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto">
+  <div class="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto px-6">
     <input id="lead" placeholder="Tu WhatsApp" class="p-4 rounded-xl text-black w-full">
-    <button onclick="captureLead()" class="bg-orange-500 px-6 rounded-xl font-black">ENVIAR</button>
+    <button onclick="captureLead()" class="bg-orange-500 px-6 py-4 rounded-xl font-black">ENVIAR</button>
   </div>
 </section>
 
-<!-- CONFIANZA -->
 <section class="py-12 bg-white text-center fade">
-  <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-fv font-black">
+  <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-fv font-black px-6">
     <div>+2500 Productos</div>
     <div>Garantía Asegurada</div>
     <div>Atención Personalizada</div>
@@ -112,154 +82,102 @@
   </div>
 </section>
 
-<!-- CATÁLOGOS -->
 <section id="catalogos" class="py-20 px-6 max-w-7xl mx-auto fade">
   <h2 class="text-3xl md:text-4xl font-black text-fv mb-12 text-center">Productos y Servicios</h2>
   <div id="catalog-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"></div>
 </section>
 
-<!-- TÉRMINOS -->
-<section id="terminos" class="bg-white py-20 px-6 fade">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="text-3xl font-black text-fv mb-8">Términos de Compra</h2>
-    <div class="space-y-3 text-gray-600 text-sm">
-      <p><strong>TÉRMINOS Y CONDICIONES DE COMPRA</strong></p>
-      <p>• Todos los precios se encuentran expresados antes del Impuesto al Valor Agregado (IVA).</p>
-      <p>• Los precios están sujetos a modificación en cualquier momento sin previo aviso, en razón de variaciones del mercado, fluctuaciones en la tasa de cambio, condiciones del proveedor u otros factores externos.</p>
-      <p>• Todos los productos ofrecidos se encuentran sujetos a disponibilidad al momento de la confirmación del pedido.</p>
-      <p>• Las características del producto, incluyendo pero sin limitarse a colores, tallas, referencias, especificaciones técnicas y demás variantes, serán verificadas y confirmadas en distintos momentos del proceso comercial, de acuerdo con la disponibilidad existente.</p>
-      <p>• Los tiempos de entrega son estimados y podrán variar dependiendo de procesos logísticos, disponibilidad del proveedor, importaciones, trámites aduaneros o circunstancias de fuerza mayor.</p>
-      <p>• La garantía de los productos será otorgada directamente por el proveedor o fabricante, bajo sus propios términos y condiciones, exonerando a la empresa de cualquier responsabilidad adicional.</p>
-      <p>• No se aceptan cambios ni devoluciones en productos importados o adquiridos bajo pedido, salvo en casos de defectos de fabricación debidamente comprobados.</p>
-      <p>• El cliente declara haber revisado y aceptado las especificaciones del producto antes de realizar la compra, liberando a la empresa de cualquier reclamación posterior por errores en la selección.</p>
-      <p>• Para la confirmación de pedidos, la empresa podrá exigir el pago total o parcial (anticipo), según la naturaleza del producto o negociación.</p>
-      <p>• Los pedidos serán procesados únicamente una vez se haya confirmado el pago correspondiente.</p>
-      <p>• La empresa no será responsable por retrasos ocasionados por terceros, incluyendo pero sin limitarse a transportadoras, operadores logísticos, proveedores, autoridades aduaneras o eventos de fuerza mayor o caso fortuito.</p>
-      <p>• Los costos de envío, seguros, impuestos adicionales o gastos logísticos no se encuentran incluidos, salvo estipulación expresa en contrario.</p>
-      
-      <p><strong>CONDICIONES DE CRÉDITO</strong></p>
-      <p>• Las ventas a crédito estarán sujetas a verificación, estudio y aprobación previa por parte de la empresa, a su entera discreción.</p>
-      <p>• El plazo de crédito será de un (1) mes o por el término expresamente autorizado por la empresa.</p>
-      <p>• En caso de incumplimiento en las fechas de pago acordadas, se causará un interés moratorio equivalente al cinco por ciento (5%) mensual sobre el saldo insoluto de la obligación.</p>
-      <p>• La empresa se reserva el derecho de suspender de manera inmediata el suministro de productos o servicios hasta tanto se cancele la totalidad de la obligación pendiente.</p>
-      <p>• Todos los gastos derivados de la gestión de cobro, incluyendo honorarios de abogados, costos judiciales y extrajudiciales, serán asumidos en su totalidad por el cliente.</p>
-      
-      <p><strong>ACEPTACIÓN DE LOS TÉRMINOS</strong></p>
-      <p>• La realización de cualquier pedido o compra implica la aceptación plena, expresa e irrevocable de los presentes términos y condiciones.</p>      
+<section id="terminos" class="bg-white py-20 px-6 max-w-6xl mx-auto fade">
+  <h2 class="text-3xl font-black text-fv mb-10">Términos de Compra</h2>
+  <div class="grid md:grid-cols-2 gap-10 text-sm text-gray-600">
+    <div>
+      <h3 class="font-black text-fv mb-2">Precios y Disponibilidad</h3>
+      <p>Todos los precios son antes de IVA y sujetos a cambio sin previo aviso por fluctuaciones del mercado. Los productos están sujetos a disponibilidad al confirmar el pedido.</p>
+    </div>
+    <div>
+      <h3 class="font-black text-fv mb-2">Entregas y Garantías</h3>
+      <p>Los tiempos de entrega son estimados. Las garantías son otorgadas directamente por el fabricante. No se aceptan cambios en productos importados bajo pedido.</p>
+    </div>
+    <div>
+      <h3 class="font-black text-fv mb-2">Condiciones de Crédito</h3>
+      <p>Ventas sujetas a estudio previo. El plazo es de 1 mes; el incumplimiento genera un interés de mora del 5% mensual más gastos de cobranza.</p>
+    </div>
+    <div>
+      <h3 class="font-black text-fv mb-2">Aceptación y Pagos</h3>
+      <p>Realizar un pedido implica la aceptación total de estos términos. Se podrá exigir anticipo según la negociación y el proceso inicia tras confirmar el pago.</p>
     </div>
   </div>
 </section>
 
-<!-- NOSOTROS -->
-<section id="nosotros" class="py-20 px-6 max-w-6xl mx-auto">
+<section id="nosotros" class="py-20 px-6 max-w-6xl mx-auto fade">
   <h2 class="text-3xl font-black text-fv mb-10">Quiénes somos</h2>
-
   <div class="grid md:grid-cols-2 gap-10 text-sm text-gray-600">
-
     <div>
       <h3 class="font-black text-fv mb-2">Nuestra Historia</h3>
       <p>En Forwarder Venture nacimos con la visión de conectar tecnología global con el mercado colombiano, evolucionando hacia soluciones personalizadas y automatizadas.</p>
     </div>
-
     <div>
       <h3 class="font-black text-fv mb-2">¿Qué hacemos?</h3>
       <p>Comercializamos tecnología, desarrollamos productos personalizados y ayudamos a PYMES a escalar con herramientas eficientes.</p>
     </div>
-
     <div>
       <h3 class="font-black text-fv mb-2">Nuestro diferencial</h3>
       <p>No vendemos productos, ofrecemos tecnología con propósito y personalización que conecta con el cliente.</p>
     </div>
-
     <div>
       <h3 class="font-black text-fv mb-2">Misión & Visión</h3>
       <p>Empoderar negocios con tecnología innovadora y ser líderes en comercialización ágil en la región.</p>
     </div>
-
   </div>
 </section>
-<!-- FOOTER -->
+
 <footer class="bg-gray-900 text-white py-12 text-center">
   <img src="logo.png" class="mx-auto mb-4 w-32" onerror="this.src='https://via.placeholder.com/120x40'">
   <p class="text-orange-400 text-xs">* TODOS LOS PRECIOS SON ANTES DE IVA</p>
   <p class="text-gray-500 text-xs mt-2">© 2026 Forwarder Venture. Todos los derechos reservados.</p>
 </footer>
 
-<!-- WHATSAPP -->
 <a href="https://wa.me/573114957971?text=Hola%20quiero%20asesor%C3%ADa" onclick="track('whatsapp_float')" target="_blank"
-class="fixed bottom-6 right-6 bg-green-500 text-white px-5 py-4 rounded-full shadow-2xl flex items-center gap-3">
-<i class="fa-brands fa-whatsapp text-xl"></i>
-<span class="text-sm font-black">Asesoría inmediata</span>
+class="fixed bottom-6 right-6 bg-green-500 text-white px-5 py-4 rounded-full shadow-2xl flex items-center gap-3 z-[100] hover:scale-110 transition">
+<i class="fa-brands fa-whatsapp text-2xl"></i>
+<span class="text-sm font-black hidden sm:inline">Asesoría inmediata</span>
 </a>
 
 <script>
-
-// ===== TRACKING REAL (Google Sheets como backend ligero) =====
 const TRACK_ENDPOINT = "https://script.google.com/macros/s/REEMPLAZAR_CON_TU_URL/exec";
 
 function track(event, extra = {}){
-  const payload = {
-    event: event,
-    timestamp: new Date().toISOString(),
-    page: window.location.href,
-    ...extra
-  };
-
-  // Envío silencioso
+  console.log("TRACK:", event, extra);
   fetch(TRACK_ENDPOINT, {
     method: "POST",
     mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: JSON.stringify({ event, timestamp: new Date().toISOString(), ...extra })
   }).catch(()=>{});
-
-  console.log("TRACK:", payload);
 }
 
-// ===== CAPTURA DE LEADS MEJORADA =====
 function captureLead(){
   const val = document.getElementById('lead').value.trim();
-
-  if(!val || val.length < 8){
-    alert('Ingresa un número válido');
-    return;
-  }
-
-  // Guardar lead
+  if(!val || val.length < 8) return alert('Ingresa un número válido');
   track('lead_capture', { phone: val });
-
-  // Mensaje automático optimizado
-  const msg = `Hola, acabo de registrarme en la web. Mi número es ${val}. Quiero recibir el catálogo VIP.`;
-
-  window.open(`https://wa.me/573114957971?text=${encodeURIComponent(msg)}`, '_blank');
-
-  // Feedback visual
-  document.getElementById('lead').value = "";
-  alert('Listo 🚀 Te contactamos por WhatsApp');
-}
-
-function captureLead(){
-  const val = document.getElementById('lead').value;
-  if(!val) return alert('Ingresa tu número');
-  track('lead');
-  window.open(`https://wa.me/573114957971?text=Hola%20este%20es%20mi%20n%C3%BAmero:%20${val}`, '_blank');
+  window.open(`https://wa.me/573114957971?text=Hola,%20quiero%20el%20catálogo%20VIP.%20Mi%20número:%20${val}`, '_blank');
 }
 
 window.addEventListener("scroll", () => {
   const nav = document.getElementById("navbar");
   const logo = document.getElementById("logo");
   const menu = document.getElementById("menu");
+  const btn = document.getElementById("menuBtn");
 
   if(window.scrollY > 50){
-    nav.classList.add("scrolled");
+    nav.classList.add("scrolled", "bg-white", "shadow-md");
     logo.classList.add("logo-small");
-    menu.classList.remove("text-white");
-    menu.classList.add("text-gray-700");
+    menu?.classList.replace("text-white", "text-gray-700");
+    btn?.classList.replace("text-white", "text-gray-700");
   } else {
-    nav.classList.remove("scrolled");
+    nav.classList.remove("scrolled", "bg-white", "shadow-md");
     logo.classList.remove("logo-small");
-    menu.classList.add("text-white");
-    menu.classList.remove("text-gray-700");
+    menu?.classList.replace("text-gray-700", "text-white");
+    btn?.classList.replace("text-gray-700", "text-white");
   }
 });
 
@@ -271,21 +189,18 @@ const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){ entry.target.classList.add("show"); }
   });
-});
+}, { threshold: 0.1 });
 
 document.querySelectorAll('.fade').forEach(el=>observer.observe(el));
 
 const CSV_URL = "https://docs.google.com/spreadsheets/d/17a0Pxq1EOLRf86yiuM014ZluVqL2Qj1Mt8cKRDenjHc/export?format=csv&gid=846871297";
-
 Papa.parse(CSV_URL, {
   download: true,
   header: true,
   complete: function(res) {
     const container = document.getElementById("catalog-list");
-
     container.innerHTML = res.data.map(c => {
       if(!c["Nombre Catálogo"]) return "";
-
       return `
       <a href="${c["Enlace"]}" onclick="track('catalog_click')" class="card bg-white rounded-2xl shadow-lg overflow-hidden transition block">
         <div class="h-40 bg-cover bg-center" style="background-image:url('${c["Imagen Banner"]}')"></div>
@@ -297,8 +212,6 @@ Papa.parse(CSV_URL, {
     }).join("");
   }
 });
-
 </script>
-
 </body>
 </html>
